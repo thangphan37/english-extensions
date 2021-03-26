@@ -1,0 +1,38 @@
+.main {
+  margin: 24px;
+}
+.form {
+  display: flex;
+}
+
+.form div {
+  width: 60px;
+}
+
+.form div:not(:first-child) {
+  margin-left: 16px;
+}
+
+input {
+  width: 100%;
+}
+
+.list-items {
+  padding: 16px;
+  margin: 0;
+  margin-top: 24px;
+  list-style: none;
+  border: solid 1px #000;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px #000;
+  padding-bottom: 8px;
+  margin-top: 16px;
+}
+
+.btn-group {
+  margin-top: 16px;
+}
