@@ -20,7 +20,7 @@ input {
 .list-items {
   padding: 16px;
   margin: 0;
-  margin-top: 24px;
+  margin-top: 8px;
   list-style: none;
   border: solid 1px #000;
 }
@@ -35,4 +35,12 @@ input {
 
 .btn-group {
   margin-top: 16px;
+}
+
+.count-group {
+  margin-top: 8px;
+}
+
+.count {
+  font-weight: bold;
 }

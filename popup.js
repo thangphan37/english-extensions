@@ -4,9 +4,16 @@ const formElement = document.querySelector('.form')
 const listElement = document.querySelector('.list-items')
 const clearElement = document.querySelector('.clear-all')
 const copyElement = document.querySelector('.copy')
+const countElement = document.querySelector('.count')
+const countFnc = {
+  increment: 'increment',
+  decrement: 'decrement',
+}
 
 chrome.storage.sync.get('data', ({data}) => {
   if (data) {
+    injectCounter(Object.keys(data).length)
+
     for (const key in data) {
       appendItem(key, data[key])
     }
@@ -24,6 +31,7 @@ formElement.addEventListener('submit', async (event) => {
 
     chrome.storage.sync.set({data: vocabularies}, function () {
       appendItem(english.value, vietnamese.value)
+      composeCounter(countFnc.increment)
       formElement.reset()
     })
   }
@@ -59,6 +67,7 @@ function handleItemRemove(event) {
 
   chrome.storage.sync.set({data: vocabularies}, function () {
     event.target.parentNode.remove()
+    composeCounter(countFnc.decrement)
   })
 }
 
@@ -77,6 +86,27 @@ function handleBtnClearAll() {
   chrome.storage.sync.remove('data', function () {
     if (listElement.hasChildNodes()) {
       Array.from(listElement.childNodes).forEach((child) => child.remove())
+      injectCounter(0)
     }
   })
+}
+
+function composeCounter(fnc) {
+  let count = getCounter()
+
+  if (fnc === countFnc.increment) {
+    count++
+  } else if (fnc === countFnc.decrement) {
+    count--
+  }
+
+  injectCounter(count)
+}
+
+function getCounter() {
+  return parseInt(countElement.textContent)
+}
+
+function injectCounter(count) {
+  countElement.textContent = count
 }
